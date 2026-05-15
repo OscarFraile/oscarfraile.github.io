@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oscar Fraile — Data Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1319;
+    --bg2: #141820;
+    --surface: #1c2230;
+    --surface2: #222a3a;
+    --border: #2a3040;
+    --border2: #333d50;
+    --text: #eef0f5;
+    --muted: #8a90a8;
+    --subtle: #4a5068;
+    --accent: #5b8dee;
+    --accent-hover: #4a7de0;
+    --green: #5beea0;
+    --green-dark: #3ab878;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(15,19,25,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-weight: 600; font-size: 0.9rem;
+    color: var(--text); text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-dot {
+    display: inline-block; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    margin: 0 6px; vertical-align: middle;
+  }
+
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.83rem; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--accent) !important;
+    color: #fff !important;
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent-hover) !important; }
+
+  /* HERO */
+  .hero-wrap { border-bottom: 1px solid var(--border); }
+
+  .hero {
+    padding: 9rem 3rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.75rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--accent); }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+  .hero h1 strong { font-weight: 700; color: #fff; }
+  .hero h1 em { font-style: normal; color: var(--accent); font-weight: 300; }
+
+  .hero-divider { width: 40px; height: 1px; background: var(--border2); margin: 1.5rem 0; }
+
+  .hero-tagline {
+    font-size: 0.85rem; color: var(--subtle);
+    letter-spacing: 0.04em; margin-bottom: 2.5rem;
+  }
+  .hero-tagline strong { color: var(--muted); font-weight: 400; }
+
+  .hero-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.6rem 1.25rem; border-radius: 7px;
+    font-size: 0.85rem; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+    font-family: 'Inter', sans-serif; letter-spacing: 0.01em;
+    border: none; cursor: pointer;
+  }
+  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-accent:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .btn-ghost { border: 1px solid var(--border2); color: var(--muted); background: transparent; }
+  .btn-ghost:hover { border-color: var(--muted); color: var(--text); transform: translateY(-1px); }
+
+  .hero-right { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+
+  .photo-wrap {
+    width: 200px; height: 200px; border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border2);
+    box-shadow: 0 0 0 6px rgba(91,141,238,0.08);
+    flex-shrink: 0;
+  }
+  .photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+  .stats { display: flex; gap: 0.65rem; }
+  .stat-pill {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.7rem 0.9rem;
+    text-align: center; min-width: 68px;
+  }
+  .stat-num { font-size: 1.35rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 0.2rem; }
+  .stat-lbl { font-size: 0.62rem; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* SECTIONS */
+  .section-wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 3rem; }
+
+  .section-header { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 2.5rem; }
+  .section-num { font-size: 0.68rem; color: var(--subtle); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+  .section-title { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; color: var(--text); }
+
+  /* FEATURED */
+  .featured-wrap { border-bottom: 1px solid var(--border); }
+
+  .featured-card {
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; transition: border-color 0.3s;
+  }
+  .featured-card:hover { border-color: rgba(91,141,238,0.4); }
+
+  .featured-img { position: relative; overflow: hidden; min-height: 440px; }
+  .featured-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .featured-card:hover .featured-img img { transform: scale(1.04); }
+
+  .featured-badge {
+    position: absolute; top: 1.25rem; left: 1.25rem;
+    background: var(--accent); color: #fff;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 100px;
+  }
+
+  .featured-body {
+    padding: 2.5rem; display: flex; flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid var(--border);
+  }
+
+  .featured-body h2 {
+    font-size: 1.5rem; font-weight: 600;
+    line-height: 1.25; letter-spacing: -0.02em;
+    margin-bottom: 1rem; color: var(--text);
+  }
+
+  .featured-body p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; margin-bottom: 1.75rem; }
+
+  .metrics-row { display: flex; gap: 0.65rem; margin-bottom: 1.75rem; }
+  .metric-box {
+    flex: 1; background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.75rem; text-align: center;
+  }
+  .metric-val { font-size: 1.25rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 0.2rem; }
+  .metric-lbl { font-size: 0.62rem; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.75rem; }
+  .tag {
+    font-size: 0.7rem; padding: 0.22rem 0.65rem;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 100px; color: var(--muted);
+  }
+
+  .card-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+  /* GRID */
+  .projects-wrap { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+  }
+
+  .card { background: var(--surface); display: flex; flex-direction: column; transition: background 0.2s; }
+  .card:hover { background: var(--surface2); }
+
+  .card-img { height: 190px; overflow: hidden; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .card:hover .card-img img { transform: scale(1.06); }
+
+  .card-body {
+    padding: 1.4rem; flex: 1; display: flex; flex-direction: column;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-body h3 { font-size: 0.95rem; font-weight: 600; line-height: 1.3; color: var(--text); margin-bottom: 0.55rem; letter-spacing: -0.01em; }
+  .card-body p { color: var(--muted); font-size: 0.8rem; line-height: 1.65; flex: 1; margin-bottom: 0.9rem; }
+
+  .card-metric {
+    font-size: 0.72rem; color: var(--green); font-weight: 500;
+    padding: 0.5rem 0; border-top: 1px solid var(--border); margin-bottom: 0.75rem;
+  }
+
+  .card-footer { display: flex; gap: 0.5rem; }
+
+  .link-btn {
+    display: inline-flex; align-items: center; font-size: 0.75rem;
+    color: var(--muted); text-decoration: none;
+    padding: 0.38rem 0.8rem; border: 1px solid var(--border);
+    border-radius: 5px; transition: all 0.2s; font-weight: 500;
+    font-family: 'Inter', sans-serif;
+  }
+  .link-btn:hover { border-color: var(--border2); color: var(--text); }
+  .link-btn.accent { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .link-btn.accent:hover { background: var(--accent-hover); }
+
+  /* CONTACT */
+  .contact-wrap { border-top: 1px solid var(--border); }
+
+  .contact {
+    max-width: 1200px; margin: 0 auto;
+    padding: 6rem 3rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+
+  .contact-left h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    font-weight: 600; letter-spacing: -0.02em;
+    line-height: 1.15; margin-bottom: 1rem; color: var(--text);
+  }
+  .contact-left h2 em { font-style: normal; color: var(--accent); }
+  .contact-left p { color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+
+  .contact-right { display: flex; flex-direction: column; gap: 0.65rem; }
+
+  .contact-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.4rem; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px;
+    text-decoration: none; color: var(--text);
+    font-size: 0.88rem; font-weight: 500; transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); }
+  .contact-link span { color: var(--subtle); font-size: 0.8rem; font-weight: 300; }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--subtle); font-size: 0.75rem;
+  }
+
+  /* FADE IN */
+  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1000px) {
+    .hero { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-right { flex-direction: row; justify-content: flex-start; }
+    .featured-card { grid-template-columns: 1fr; }
+    .featured-img { min-height: 260px; }
+    .featured-body { border-left: none; border-top: 1px solid var(--border); }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .contact { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, .section-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .grid { grid-template-columns: 1fr; }
+    .contact { padding: 3rem 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Oscar Fraile<span class="nav-dot"></span>Data Scientist</a>
+  <div class="nav-links">
+    <a href="#featured">Proyecto</a>
+    <a href="#projects">Portfolio</a>
+    <a href="#contact" class="nav-cta">Contacto</a>
+  </div>
+</nav>
+
+<div class="hero-wrap">
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">Madrid · Data Science · Machine Learning</div>
+    <h1>Hola, soy <strong>Oscar.</strong><br><em>Data Scientist</em> con<br>visión de negocio.</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">ML · DL · GenAI · <strong>Transformando datos en decisiones</strong></p>
+    <div class="hero-links">
+      <a href="https://github.com/OscarFraile" target="_blank" class="btn btn-accent">GitHub</a>
+      <a href="https://www.linkedin.com/in/oscarfrailebermejo/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      <a href="#projects" class="btn btn-ghost">Ver proyectos</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="photo-wrap">
+      <img src="https://i.imgur.com/0SEQtgM.png" alt="Oscar Fraile">
+    </div>
+    <div class="stats">
+      <div class="stat-pill"><div class="stat-num">7</div><div class="stat-lbl">Proyectos</div></div>
+      <div class="stat-pill"><div class="stat-num">.997</div><div class="stat-lbl">AUC-ROC</div></div>
+      <div class="stat-pill"><div class="stat-num">1M+</div><div class="stat-lbl">Registros</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="featured-wrap" id="featured">
+<div class="section-wrap">
+  <div class="section-header fade-in">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Proyecto principal</h2>
+  </div>
+  <div class="featured-card fade-in">
+    <div class="featured-img">
+      <img src="https://i.imgur.com/4sjSaYL.png" alt="Airbnb Madrid">
+      <span class="featured-badge">Master DS · Evolve</span>
+    </div>
+    <div class="featured-body">
+      <div>
+        <h2>Airbnb Madrid — Predicción de Rentabilidad</h2>
+        <p>Modelo XGBoost sobre 30.000 alojamientos para clasificar alta o baja rentabilidad. Pipeline end-to-end con calidad de datos, ingeniería de variables, balanceo y GridSearch. Mapa interactivo Folium con resultados por barrios de Madrid.</p>
+        <div class="metrics-row">
+          <div class="metric-box"><div class="metric-val">0.997</div><div class="metric-lbl">AUC-ROC</div></div>
+          <div class="metric-box"><div class="metric-val">30K</div><div class="metric-lbl">Alojamientos</div></div>
+          <div class="metric-box"><div class="metric-val">E2E</div><div class="metric-lbl">Producción</div></div>
+        </div>
+        <div class="tags">
+          <span class="tag">XGBoost</span><span class="tag">Clasificación</span><span class="tag">Folium</span><span class="tag">GridSearch</span><span class="tag">Producción</span>
+        </div>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/OscarFraile/Proyecto-Master-DataScience-Evolve-OscarFraile" target="_blank" class="btn btn-accent">Repositorio</a>
+        <a href="https://dev.to/evolve-space/sabrias-donde-invertir-en-madrid-add" target="_blank" class="btn btn-ghost">Artículo Dev.to</a>
+        <a href="https://www.linkedin.com/in/oscarfrailebermejo/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="projects-wrap" id="projects">
+<div class="section-wrap">
+  <div class="section-header fade-in">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Portfolio completo</h2>
+  </div>
+  <div class="grid">
+
+    <div class="card fade-in">
+      <div class="card-img"><img src="https://i.imgur.com/7XWTzOR.png" alt="Banking Risk"></div>
+      <div class="card-body">
+        <h3>Banking Risk — PD, EAD y LGD</h3>
+        <p>Tres modelos según marco Basilea II/III. Regresión Logística para PD y HistGradientBoosting para EAD y LGD.</p>
+        <div class="card-metric">AUC-ROC PD: 0.881</div>
+        <div class="tags" style="margin-bottom:0.75rem"><span class="tag">Basilea II/III</span><span class="tag">LightGBM</span><span class="tag">Regresión</span></div>
+        <div class="card-footer"><a href="https://github.com/OscarFraile/Banking-risk" target="_blank" class="link-btn accent">Repositorio</a></div>
+      </div>
+    </div>
+
+    <div class="card fade-in">
+      <div class="card-img"><img src="https://i.imgur.com/uGItzHz.png" alt="Lead Scoring"></div>
+      <div class="card-body">
+        <h3>Lead Scoring — Probabilidad de Compra</h3>
+        <p>KMeans (5 clusters) + XGBoost para predecir probabilidad de compra. Sistema en producción con reentrenamiento automático.</p>
+        <div class="card-metric">AUC-ROC: 0.901</div>
+        <div class="tags" style="margin-bottom:0.75rem"><span class="tag">KMeans</span><span class="tag">XGBoost</span><span class="tag">CRM</span></div>
+        <div class="card-footer"><a href="https://github.com/OscarFraile/Lead-Scoring" target="_blank" class="link-btn accent">Repositorio</a></div>
+      </div>
+    </div>
+
+    <div class="card fade-in">
+      <div class="card-img"><img src="https://i.imgur.com/TpR6ZpT.png" alt="Retail Forecasting"></div>
+      <div class="card-body">
+        <h3>Retail Forecasting — Ventas por Producto</h3>
+        <p>20 modelos individuales (producto × tienda) sobre datos M5 Kaggle con HistGradientBoosting y RandomizedSearchCV.</p>
+        <div class="card-metric">20 modelos · 21.900 registros</div>
+        <div class="tags" style="margin-bottom:0.75rem"><span class="tag">Forecasting</span><span class="tag">LightGBM</span><span class="tag">Kaggle M5</span></div>
+        <div class="card-footer"><a href="https://github.com/OscarFraile/Retail-Forecasting" target="_blank" class="link-btn accent">Repositorio</a></div>
+      </div>
+    </div>
+
+    <div class="card fade-in">
+      <div class="card-img"><img src="https://i.imgur.com/hTKxuIs.png" alt="Online Retail"></div>
+      <div class="card-body">
+        <h3>Online Retail — Predicción de Recompra</h3>
+        <p>RFM features + KMeans + HistGradientBoosting con Optuna sobre 1M+ transacciones. Explicabilidad con DALEX.</p>
+        <div class="card-metric">AUC-ROC: 0.864 · 2× lift</div>
+        <div class="tags" style="margin-bottom:0.75rem"><span class="tag">Optuna</span><span class="tag">DALEX</span><span class="tag">RFM</span></div>
+        <div class="card-footer"><a href="https://github.com/OscarFraile/online-retail-rebuying" target="_blank" class="link-btn accent">Repositorio</a></div>
+      </div>
+    </div>
+
+    <div class="card fade-in">
+      <div class="card-img"><img src="https://i.imgur.com/C5JNzIj.png" alt="Wise BERT"></div>
+      <div class="card-body">
+        <h3>Wise Trustpilot — Análisis con BERT</h3>
+        <p>Sentimiento y topic modeling sobre 5.800 reseñas con BERT. Wise comparado contra 69 competidores del sector.</p>
+        <div class="card-metric">69 competidores analizados</div>
+        <div class="tags" style="margin-bottom:0.75rem"><span class="tag">BERT</span><span class="tag">NLP</span><span class="tag">HuggingFace</span></div>
+        <div class="card-footer"><a href="https://github.com/OscarFraile/wise-trustpilot-sentiment-bert" target="_blank" class="link-btn accent">Repositorio</a></div>
+      </div>
+    </div>
+
+    <div class="card fade-in">
+      <div class="card-img"><img src="https://i.imgur.com/ebqBNnr.png" alt="Agente RAG"></div>
+      <div class="card-body">
+        <h3>Agente RAG — Experto en Motores</h3>
+        <p>Asistente conversacional sobre 158 páginas de documentación técnica. LangGraph + ChromaDB + Gemini con failover automático.</p>
+        <div class="card-metric">632 fragmentos indexados</div>
+        <div class="tags" style="margin-bottom:0.75rem"><span class="tag">LangGraph</span><span class="tag">ChromaDB</span><span class="tag">Streamlit</span></div>
+        <div class="card-footer"><a href="https://github.com/OscarFraile/agente-rag-motores" target="_blank" class="link-btn accent">Repositorio</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<div class="contact-wrap" id="contact">
+<div class="contact">
+  <div class="contact-left fade-in">
+    <h2>¿Analizamos<br><em>algo juntos?</em></h2>
+    <p style="margin-top:1rem">Si tienes un problema de negocio que los datos pueden resolver, hablamos.</p>
+  </div>
+  <div class="contact-right fade-in">
+    <a href="https://www.linkedin.com/in/oscarfrailebermejo/" target="_blank" class="contact-link">LinkedIn <span>→</span></a>
+    <a href="mailto:frailebermejo@gmail.com" class="contact-link">frailebermejo@gmail.com <span>→</span></a>
+    <a href="https://github.com/OscarFraile" target="_blank" class="contact-link">github.com/OscarFraile <span>→</span></a>
+  </div>
+</div>
+</div>
+
+<footer>
+  <span>Oscar Fraile · Data Scientist · Madrid</span>
+  <span>2025</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
